@@ -1,4 +1,4 @@
-package eu.cloudoping.testing.config;
+package eu.cloudopting.testing.config;
 
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.Proxy;
@@ -9,8 +9,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static eu.cloudoping.testing.config.DriverType.FIREFOX;
-import static eu.cloudoping.testing.config.DriverType.valueOf;
+import static eu.cloudopting.testing.config.DriverType.FIREFOX;
+import static eu.cloudopting.testing.config.DriverType.valueOf;
 import static org.openqa.selenium.Proxy.ProxyType.MANUAL;
 
 public class DriverFactory {

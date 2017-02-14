@@ -1,4 +1,4 @@
-package eu.cloudoping.testing.config;
+package eu.cloudopting.testing.config;
 
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
