@@ -1,10 +1,12 @@
 package eu.cloudoping.testing.tests;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,12 +36,36 @@ public class TestServiceManagement extends TestCase {
 		driver.get(baseUrl);
 		CommonSteps.login(driver, baseUrl);
 		
+		fillForm();
+		
+		WebElement thanksElement = driver.findElement(By.xpath("//div[@class='thanks']//h5"));
+		assertEquals("your service has been published", thanksElement.getText().toLowerCase());
+		
+		WebElement serviceRow = findServiceRow("TestServiceName");
+		
+	    assertNotNull(serviceRow);
+	    
+	    WebElement delButton = serviceRow.findElements(By.tagName("button")).get(3);
+	    System.out.println(delButton.getText());
+	    
+	    delButton.click();
+	    Alert alert = driver.switchTo().alert();
+		System.out.println("Alert: " + alert.getText());
+		alert.accept(); //click ok to the confirmation
+		System.out.println("Confirmation clicked");
+		
+		WebElement afterDelServiceRow = findServiceRow("TestServiceName");
+	    
+	    assertNull(afterDelServiceRow);
+	}
+	
+	private void fillForm() throws InterruptedException {
 		Thread.sleep(15000);
 		System.out.println("testServiceManagement");
 		driver.get(baseUrl + "/publish");
 	    
 	    driver.findElement(By.id("serviceName")).clear();
-	    driver.findElement(By.id("serviceName")).sendKeys("ServiceName");
+	    driver.findElement(By.id("serviceName")).sendKeys("TestServiceName");
 	    driver.findElement(By.id("toscaName")).clear();
 	    driver.findElement(By.id("toscaName")).sendKeys("ServiceName");
 	    driver.findElement(By.id("servicePrice")).clear();
@@ -52,11 +78,6 @@ public class TestServiceManagement extends TestCase {
 	    driver.findElement(By.id("termsAndConditions")).sendKeys("link");
 	    driver.findElement(By.id("shortDescription")).clear();
 	    driver.findElement(By.id("shortDescription")).sendKeys("description");
-	    
-//	    WebElement descriptionDiv = driver.findElement(By.xpath("(//div[@class='ta-scroll-window ng-scope ta-text ta-editor form-control')[2]"));
-//	    System.out.println(descriptionDiv.getText());
-//	    descriptionDiv.click();
-//	    descriptionDiv.sendKeys("Description");
 	    
 	    driver.findElement(By.id("applicationSubscriberMail")).clear();
 	    driver.findElement(By.id("applicationSubscriberMail")).sendKeys("template");
@@ -96,10 +117,41 @@ public class TestServiceManagement extends TestCase {
 	    	finishButton.click();
 	    }
 	    Thread.sleep(5000);
-	    
-	    WebElement thanksElement = driver.findElement(By.xpath("//div[@class='thanks']//h5"));
-	    assert(thanksElement.getText().equals("Your service has been published"));
-	    
+	}
+	
+	private WebElement findServiceRow(String servicename) throws InterruptedException {
+		driver.get(baseUrl + "list");
+		Thread.sleep(5000);
+		String numberCounter = driver.findElement(By.xpath("//span[@class='pagination-number ng-binding']")).getText();
+		System.out.println("numberCounter " + numberCounter);
+		int numberOfPages = Integer.parseInt(numberCounter.split("/")[1]);
+		System.out.println("Pages: " + numberOfPages);
+		WebElement serviceTR = null;
+		for (int i = 0; i < numberOfPages; i++) {
+			System.out.println("Current page: " + i);
+			Thread.sleep(5000);
+			List<WebElement> trElements = driver
+					.findElements(By.xpath("//table[@class='table table-hover']//tbody//tr"));
+			for (WebElement trElement : trElements) {
+				List<WebElement> tdElements = trElement.findElements(By.xpath("./td"));
+//				for(WebElement td : tdElements) {
+//					System.out.println(td.getText());
+//				}
+//				tdElements = trElement.findElements(By.xpath("./td"));
+				if (tdElements.get(0).getText().equals(servicename)) {
+					System.out.println("FOUND");
+					serviceTR = trElement;
+					return serviceTR;
+				}
+			}
+			WebElement button = driver.findElement(By.xpath("//div[@class='input-group text-center']//button[2]"));
+			if (button.isEnabled()) {
+				Thread.sleep(5000);
+				button.click();
+			}
+		
+		}
+		return null;
 	}
 	
 	@After
