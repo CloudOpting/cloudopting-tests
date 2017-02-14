@@ -144,7 +144,7 @@
                         <version>2.19.1</version>
                         <configuration>
                         	<includes>
-            					<include>eu.cloudoping.testing.tests/*.java</include>
+            					<include>eu.cloudoping.testing.tests/TestCreateUser.java</include>
             					<!-- <include>com.lazerycode.selenium.tests/CreateUser.java</include> -->
          					</includes>
                             <parallel>methods</parallel>

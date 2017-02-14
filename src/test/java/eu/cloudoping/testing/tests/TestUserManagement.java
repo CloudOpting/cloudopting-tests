@@ -3,6 +3,8 @@ package eu.cloudoping.testing.tests;
 import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import eu.cloudopting.testing.common.CommonSteps;
 
-public class TestCreateUser {
+public class TestUserManagement {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -25,6 +27,8 @@ public class TestCreateUser {
 
 	@Before
 	public void setUp() throws Exception {
+		System.setProperty("webdriver.gecko.driver", "/Users/dave/Documents/emerasoft/cloudopting-work/cloudopting-tests/src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver");
+
 		driver = new FirefoxDriver();
 		baseUrl = CommonSteps.BASE_URL;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -32,15 +36,86 @@ public class TestCreateUser {
 
 	@Test
 	public void testCreateUser() throws Exception {
+		System.out.println("createUser");
 		driver.get(baseUrl);
 		CommonSteps.login(driver, baseUrl);
 
 		createUser();
 
 		driver.get(baseUrl + "user_manager");
-		assert (userHasBeenCreated());
+		boolean created = userExists();
+		
+		if (!created) {
+			fail("User not created!");
+		}
+		
+		deleteUser();
+		Thread.sleep(15000);
+		boolean found = userExists();
+		if (found) {
+			fail("the user is still present");
+		}
+		
 	}
+	
+	private void deleteUser() throws InterruptedException {
+		System.out.println("deleteUser");
+		driver.get(baseUrl + "user_manager");
+		Thread.sleep(5000);
+		
+		WebElement tr = findUserRow("test", "Test User", "test.user@profesia.it", "Profesia");
 
+		if (tr == null) {
+			fail("User not found!");
+		}
+		System.out.println("User found");
+		List<WebElement> findElements = tr.findElements(By.tagName("td"));
+		for (WebElement el: findElements) {
+			System.out.println(el.getText());
+		}
+		//WebElement delButton = tr.findElements(By.xpath("//button[@class='btn btn-icon actionsTooltip ng-binding']")).get(1);
+		WebElement delButton = tr.findElements(By.tagName("button")).get(1);
+		System.out.println("Del button found: " + delButton.getText());
+		delButton.click();
+		System.out.println("Del button clicked");
+		Thread.sleep(15000);
+		Alert alert = driver.switchTo().alert();
+		System.out.println("Alert: " + alert.getText());
+		alert.accept(); //click ok to the confirmation
+		System.out.println("Confirmation clicked");
+	}
+		
+	
+
+	private WebElement findUserRow(String alias, String name, String email, String organization ) throws InterruptedException {
+		driver.get(baseUrl + "user_manager");
+		Thread.sleep(5000);
+		String numberCounter = driver.findElement(By.xpath("//span[@class='pagination-number ng-binding']")).getText();
+		System.out.println("numberCounter " + numberCounter);
+		int numberOfPages = Integer.parseInt(numberCounter.split("/")[1]);
+		System.out.println("Pages: " + numberOfPages);
+		WebElement userTR = null;
+		for (int i = 0; i < numberOfPages; i++) {
+			System.out.println("Current page: " + i);
+			List<WebElement> trElements = driver
+					.findElements(By.xpath("//table[@class='table table-hover']//tbody//tr"));
+			for (WebElement trElement : trElements) {
+				List<WebElement> tdElements = trElement.findElements(By.xpath("./td"));
+				if (tdElements.get(0).getText().equals(alias) 
+						&& tdElements.get(1).getText().equals(name)
+						&& tdElements.get(2).getText().equals(email)
+						&& tdElements.get(3).getText().equals(organization)) {
+					userTR = trElement;
+				}
+			}
+			WebElement button = driver.findElement(By.xpath("//div[@class='input-group text-center']//button[2]"));
+			if (button.isEnabled()) {
+				button.click();
+			}
+		
+		}
+		return userTR;
+	}
 
 
 	private void createUser() throws InterruptedException {
@@ -78,30 +153,10 @@ public class TestCreateUser {
 		Thread.sleep(10000);
 	}
 
-	private boolean userHasBeenCreated() throws InterruptedException {
-		driver.get(baseUrl + "user_manager");
-		Thread.sleep(5000);
-		String numberCounter = driver.findElement(By.xpath("//span[@class='pagination-number ng-binding']")).getText();
-		System.out.println("numberCounter " + numberCounter);
-		int numberOfPages = Integer.parseInt(numberCounter.split("/")[1]);
-		System.out.println("Pages: " + numberOfPages);
-		for (int i = 0; i < numberOfPages; i++) {
-			System.out.println("Current page: " + i);
-			List<WebElement> trElements = driver
-					.findElements(By.xpath("//table[@class='table table-hover']//tbody//tr"));
-			for (WebElement trElement : trElements) {
-				List<WebElement> tdElements = trElement.findElements(By.xpath("./td"));
-				if (tdElements.get(0).getText().equals("test") && tdElements.get(1).getText().equals("Test User")
-						&& tdElements.get(2).getText().equals("test.user@profesia.it")
-						&& tdElements.get(3).getText().equals("Profesia")) {
-					System.out.println("User found at page number " + (i + 1));
-					return true;
-				}
-			}
-			driver.findElement(By.xpath("//div[@class='input-group text-center']//button[2]")).click();
-		}
-		System.out.println("User not found");
-		return false;
+	private boolean userExists() throws InterruptedException {
+		WebElement tr = findUserRow("test", "Test User", "test.user@profesia.it", "Profesia");
+		System.out.println("<tr>: " + tr);
+		return (tr != null);
 	}
 
 	@After

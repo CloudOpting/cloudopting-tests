@@ -19,8 +19,7 @@ public class CommonSteps {
 		driver.findElement(By.id("password")).sendKeys("Administr@t0r");
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 		Thread.sleep(5000);
-		driver.findElement(By.xpath("//a[contains(text(),'Account')]")).click();
-		Thread.sleep(5000);
+		
 
 	}
 	

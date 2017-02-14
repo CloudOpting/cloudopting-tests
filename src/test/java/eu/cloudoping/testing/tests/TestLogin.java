@@ -22,6 +22,8 @@ public class TestLogin extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
+		System.setProperty("webdriver.gecko.driver", "/Users/dave/Documents/emerasoft/cloudopting-work/cloudopting-tests/src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver");
+
 		driver = new FirefoxDriver();
 		baseUrl = CommonSteps.BASE_URL;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -29,7 +31,11 @@ public class TestLogin extends TestCase {
 
 	@Test
 	public void testLogin() throws Exception {
+		System.err.println("testLogin");
 		CommonSteps.login(driver, baseUrl);
+		
+		driver.findElement(By.xpath("//a[contains(text(),'Account')]")).click();
+		Thread.sleep(5000);
 
 		assert (driver.findElement(By.xpath("//div[@id='tab_settings']/form/div/input")).getAttribute("value")
 				.equals("Admin"));
