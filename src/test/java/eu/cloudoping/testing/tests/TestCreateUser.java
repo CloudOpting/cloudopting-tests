@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import eu.cloudopting.testing.common.CommonSteps;
 
-public class CreateUser {
+public class TestCreateUser {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
