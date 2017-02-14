@@ -1,10 +1,8 @@
 package eu.cloudoping.testing.tests;
 
-import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +16,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import eu.cloudopting.testing.common.CommonSteps;
+import junit.framework.TestCase;
 
-public class TestUserManagement {
+public class TestUserManagement extends TestCase{
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
