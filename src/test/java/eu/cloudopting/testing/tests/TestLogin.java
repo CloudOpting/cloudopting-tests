@@ -1,4 +1,4 @@
-package eu.cloudoping.testing.tests;
+package eu.cloudopting.testing.tests;
 
 import java.util.concurrent.TimeUnit;
 import org.junit.After;

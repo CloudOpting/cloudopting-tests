@@ -1,7 +1,7 @@
-package eu.cloudoping.testing;
+package eu.cloudopting.testing;
 
-import eu.cloudoping.testing.listeners.ScreenshotListener;
 import eu.cloudopting.testing.config.DriverFactory;
+import eu.cloudopting.testing.listeners.ScreenshotListener;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;

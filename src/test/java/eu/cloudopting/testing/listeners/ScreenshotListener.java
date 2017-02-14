@@ -1,4 +1,4 @@
-package eu.cloudoping.testing.listeners;
+package eu.cloudopting.testing.listeners;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.Augmenter;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
-import static eu.cloudoping.testing.DriverBase.getDriver;
+import static eu.cloudopting.testing.DriverBase.getDriver;
 
 import java.io.File;
 import java.io.FileOutputStream;
