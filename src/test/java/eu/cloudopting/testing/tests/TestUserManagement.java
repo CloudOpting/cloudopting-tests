@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,12 +19,11 @@ import junit.framework.TestCase;
 public class TestUserManagement extends TestCase{
 	private WebDriver driver;
 	private String baseUrl;
-	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.gecko.driver", "/Users/dave/Documents/emerasoft/cloudopting-work/cloudopting-tests/src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver");
+		System.setProperty("webdriver.gecko.driver", "src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver");
 
 		driver = new FirefoxDriver();
 		baseUrl = CommonSteps.BASE_URL;
@@ -34,7 +31,7 @@ public class TestUserManagement extends TestCase{
 	}
 
 	@Test
-	public void testCreateUser() throws Exception {
+	public void testUserManagement() throws Exception {
 		System.out.println("createUser");
 		driver.get(baseUrl);
 		CommonSteps.login(driver, baseUrl);
@@ -43,18 +40,34 @@ public class TestUserManagement extends TestCase{
 
 		driver.get(baseUrl + "user_manager");
 		boolean created = userExists();
-		
-		if (!created) {
-			fail("User not created!");
-		}
+
+		assertTrue("The user is not created", created);		
 		
 		deleteUser();
 		Thread.sleep(15000);
 		boolean found = userExists();
-		if (found) {
-			fail("the user is still present");
-		}
 		
+		assertFalse("The user is still present", found);
+		
+	}
+	
+	@Test
+	public void testSearch() throws InterruptedException {
+		driver.get(baseUrl);
+		CommonSteps.login(driver, baseUrl);
+		
+		driver.get(baseUrl + "user_manager");
+		
+		WebElement searchField = driver.findElement(By.xpath("//input[@type='text']"));
+		searchField.sendKeys("profesia");
+		
+		WebElement searchButton = driver.findElement(By.cssSelector(".btn-search"));
+		
+		searchButton.click();
+		
+		WebElement userRow = findUserRow("profesia", "Profesia Profesia", "pro@profesia.it", "Profesia");
+		
+		assertNotNull("user not found", userRow);
 	}
 	
 	private void deleteUser() throws InterruptedException {
@@ -166,39 +179,6 @@ public class TestUserManagement extends TestCase{
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);
-		}
-	}
-
-	private boolean isElementPresent(By by) {
-		try {
-			driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-
-	private boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		} catch (NoAlertPresentException e) {
-			return false;
-		}
-	}
-
-	private String closeAlertAndGetItsText() {
-		try {
-			Alert alert = driver.switchTo().alert();
-			String alertText = alert.getText();
-			if (acceptNextAlert) {
-				alert.accept();
-			} else {
-				alert.dismiss();
-			}
-			return alertText;
-		} finally {
-			acceptNextAlert = true;
 		}
 	}
 }

@@ -32,18 +32,18 @@ public class TestServiceManagement extends TestCase {
 	
 	@Test
 	public void testServiceManagement() throws Exception{
-		System.out.println("createUser");
+		System.out.println("testServiceManagement");
 		driver.get(baseUrl);
 		CommonSteps.login(driver, baseUrl);
 		
 		fillForm();
 		
 		WebElement thanksElement = driver.findElement(By.xpath("//div[@class='thanks']//h5"));
-		assertEquals("your service has been published", thanksElement.getText().toLowerCase());
+		assertEquals("The service has not been published", "your service has been published", thanksElement.getText().toLowerCase());
 		
 		WebElement serviceRow = findServiceRow("TestServiceName");
 		
-	    assertNotNull(serviceRow);
+	    assertNotNull("The service is not in the service list", serviceRow);
 	    
 	    WebElement delButton = serviceRow.findElements(By.tagName("button")).get(3);
 	    System.out.println(delButton.getText());
@@ -56,7 +56,22 @@ public class TestServiceManagement extends TestCase {
 		
 		WebElement afterDelServiceRow = findServiceRow("TestServiceName");
 	    
-	    assertNull(afterDelServiceRow);
+	    assertNull("After delete the service is still in the service list", afterDelServiceRow);
+	}
+	
+	@Test
+	public void testSearch() throws InterruptedException {
+		CommonSteps.login(driver, baseUrl);
+		System.out.println("testSearch");
+		driver.get(baseUrl + "/list");
+		WebElement searchField = driver.findElement(By.xpath("//input[@type='text']"));
+		searchField.sendKeys("CKAN");
+		WebElement searchButton = driver.findElement(By.cssSelector(".btn-search"));
+		searchButton.click();
+		
+		WebElement serviceRow = findServiceRow("CKAN");
+		
+		assertNotNull("Service not found", serviceRow);
 	}
 	
 	private void fillForm() throws InterruptedException {
