@@ -176,10 +176,7 @@ public class TestServiceManagement extends TestCase {
 					.findElements(By.xpath("//table[@class='table table-hover']//tbody//tr"));
 			for (WebElement trElement : trElements) {
 				List<WebElement> tdElements = trElement.findElements(By.xpath("./td"));
-//				for(WebElement td : tdElements) {
-//					System.out.println(td.getText());
-//				}
-//				tdElements = trElement.findElements(By.xpath("./td"));
+
 				if (tdElements.get(0).getText().equals(servicename)) {
 					System.out.println("FOUND");
 					serviceTR = trElement;
