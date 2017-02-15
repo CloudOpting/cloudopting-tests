@@ -74,6 +74,33 @@ public class TestServiceManagement extends TestCase {
 		assertNotNull("Service not found", serviceRow);
 	}
 	
+	@Test
+	public void testInstanceList() throws InterruptedException {
+		CommonSteps.login(driver, baseUrl);
+		System.out.println("testSearch");
+		driver.get(baseUrl + "/list");
+		
+		WebElement serviceRow = findServiceRow("CKAN");
+		
+		WebElement listButton = serviceRow.findElements(By.tagName("button")).get(2);
+	    System.out.println(listButton.getText());
+	    
+	    listButton.click();
+	    Thread.sleep(5000);
+	    WebElement table = driver.findElement(By.cssSelector(".table-hover"));
+	    List<WebElement> rows = table.findElements(By.tagName("tr"));
+	    System.out.println("Rows: " + rows.size());
+	    for (WebElement row : rows) {
+	    	Thread.sleep(5000);
+	    	List<WebElement> cells = row.findElements(By.tagName("td"));
+	    	if (cells.size() == 0) { //skip header
+	    		continue;
+	    	}
+	    	 System.out.println("Cells: " + cells.size());
+	    	assertEquals("Name of the service not found", "CKAN", cells.get(0).getText());
+	    }
+	}
+	
 	private void fillForm() throws InterruptedException {
 		Thread.sleep(15000);
 		System.out.println("testServiceManagement");
