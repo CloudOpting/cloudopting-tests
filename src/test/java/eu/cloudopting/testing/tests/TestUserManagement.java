@@ -52,7 +52,7 @@ public class TestUserManagement extends TestCase{
 	}
 	
 	@Test
-	public void testSearch() throws InterruptedException {
+	public void testSearchUser() throws InterruptedException {
 		driver.get(baseUrl);
 		CommonSteps.login(driver, baseUrl);
 		

@@ -60,7 +60,7 @@ public class TestServiceManagement extends TestCase {
 	}
 	
 	@Test
-	public void testSearch() throws InterruptedException {
+	public void testSearchService() throws InterruptedException {
 		CommonSteps.login(driver, baseUrl);
 		System.out.println("testSearch");
 		driver.get(baseUrl + "/list");
