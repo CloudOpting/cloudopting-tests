@@ -22,7 +22,7 @@ public class TestLogin extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty("webdriver.gecko.driver", "src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver");
+		System.setProperty(CommonSteps.DRIVER_PROPERTY_NAME, CommonSteps.DRIVER_PATH);
 
 		driver = new FirefoxDriver();
 		baseUrl = CommonSteps.BASE_URL;
