@@ -30,6 +30,12 @@ public class TestServiceManagement extends TestCase {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 	
+	/**
+	 * Test the management of services
+	 * Create a new service with default values, check that the new service is in the service list,
+	 * then delete it and check that it is removed from the list
+	 * @throws Exception
+	 */
 	@Test
 	public void testServiceManagement() throws Exception{
 		System.out.println("testServiceManagement");
@@ -59,6 +65,11 @@ public class TestServiceManagement extends TestCase {
 	    assertNull("After delete the service is still in the service list", afterDelServiceRow);
 	}
 	
+	/**
+	 * Test the service search
+	 * Input the name of a service and check that the matching record is in the shown list
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void testSearchService() throws InterruptedException {
 		CommonSteps.login(driver, baseUrl);
@@ -74,6 +85,11 @@ public class TestServiceManagement extends TestCase {
 		assertNotNull("Service not found", serviceRow);
 	}
 	
+	/**
+	 * Test the instance list of a service
+	 * Open the instance list of a service and check that the matching instances are in the list
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void testInstanceList() throws InterruptedException {
 		CommonSteps.login(driver, baseUrl);

@@ -28,7 +28,12 @@ public class TestLogin extends TestCase {
 		baseUrl = CommonSteps.BASE_URL;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-
+	
+	/**
+	 * Test the login process.
+	 * Login with the admin credentials and check in the account page that the data is correct
+	 * @throws Exception
+	 */
 	@Test
 	public void testLogin() throws Exception {
 		System.err.println("testLogin");

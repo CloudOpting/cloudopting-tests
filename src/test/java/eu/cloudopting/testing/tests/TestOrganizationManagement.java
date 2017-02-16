@@ -52,6 +52,11 @@ public class TestOrganizationManagement extends TestCase {
 //	    driver.findElement(By.xpath("//button[@type='submit'][2]")).click();
 //	}
 	
+	/**
+	 * Test Organization search
+	 * Input the name of an organization and check that the matching record is in the shown list
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void testSearchOrganization() throws InterruptedException {
 		CommonSteps.login(driver, baseUrl);

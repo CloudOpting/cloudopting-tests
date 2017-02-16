@@ -30,6 +30,12 @@ public class TestUserManagement extends TestCase{
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
+	/**
+	 * Test the management of users
+	 * Create a new user with default values, check that the new user is in the user list,
+	 * then delete it and check that it is removed from the list
+	 * @throws Exception
+	 */
 	@Test
 	public void testUserManagement() throws Exception {
 		System.out.println("createUser");
@@ -51,6 +57,11 @@ public class TestUserManagement extends TestCase{
 		
 	}
 	
+	/**
+	 * Test the user search
+	 * Input the alias of a user and check that the matching record is in the shown list
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void testSearchUser() throws InterruptedException {
 		driver.get(baseUrl);
