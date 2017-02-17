@@ -6,8 +6,10 @@ import org.openqa.selenium.WebDriver;
 public class CommonSteps {
 	
 	public static String BASE_URL = "http://dev.cloudopting.org/";
-	public static String DRIVER_PROPERTY_NAME = "webdriver.gecko.driver";
-	public static String DRIVER_PATH = "src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver";
+	public static String FIREFOX_DRIVER_PROPERTY_NAME = "webdriver.gecko.driver";
+	public static String FIREFOX_DRIVER_PATH = "src/test/resources/selenium_standalone_binaries/osx/marionette/64bit/geckodriver";
+	public static String CHROME_DRIVER_PROPERTY_NAME = "webdriver.chrome.driver";
+	public static String CHROME_DRIVER_PATH = "src/test/resources/selenium_standalone_binaries/osx/googlechrome/64bit/chromedriver";
 	
 	public static void login(WebDriver driver, String baseUrl) throws InterruptedException {
 		System.out.println("Common.login");

@@ -22,7 +22,7 @@ public class TestLogin extends TestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		System.setProperty(CommonSteps.DRIVER_PROPERTY_NAME, CommonSteps.DRIVER_PATH);
+		System.setProperty(CommonSteps.FIREFOX_DRIVER_PROPERTY_NAME, CommonSteps.FIREFOX_DRIVER_PATH);
 
 		driver = new FirefoxDriver();
 		baseUrl = CommonSteps.BASE_URL;

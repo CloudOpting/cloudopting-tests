@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="7" passed="7">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="506459" started-at="2017-02-16T10:31:22Z" finished-at="2017-02-16T10:39:48Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="506459" started-at="2017-02-16T10:31:22Z" finished-at="2017-02-16T10:39:48Z">
+      <class name="eu.cloudopting.testing.tests.TestLogin">
+        <test-method status="PASS" signature="testLogin() throws java.lang.Exception" name="testLogin" duration-ms="23415" started-at="2017-02-16T11:31:22Z" finished-at="2017-02-16T11:31:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+      </class> <!-- eu.cloudopting.testing.tests.TestLogin -->
+      <class name="eu.cloudopting.testing.tests.TestUserManagement">
+        <test-method status="PASS" signature="testSearchUser() throws java.lang.InterruptedException" name="testSearchUser" duration-ms="25105" started-at="2017-02-16T11:37:52Z" finished-at="2017-02-16T11:38:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchUser -->
+        <test-method status="PASS" signature="testUserManagement() throws java.lang.Exception" name="testUserManagement" duration-ms="116534" started-at="2017-02-16T11:37:52Z" finished-at="2017-02-16T11:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUserManagement -->
+      </class> <!-- eu.cloudopting.testing.tests.TestUserManagement -->
+      <class name="eu.cloudopting.testing.tests.TestServiceManagement">
+        <test-method status="PASS" signature="testSearchService() throws java.lang.InterruptedException" name="testSearchService" duration-ms="139044" started-at="2017-02-16T11:32:48Z" finished-at="2017-02-16T11:35:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchService -->
+        <test-method status="PASS" signature="testInstanceList() throws java.lang.InterruptedException" name="testInstanceList" duration-ms="99051" started-at="2017-02-16T11:32:48Z" finished-at="2017-02-16T11:34:27Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testInstanceList -->
+        <test-method status="PASS" signature="testServiceManagement() throws java.lang.Exception" name="testServiceManagement" duration-ms="303464" started-at="2017-02-16T11:32:48Z" finished-at="2017-02-16T11:37:52Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testServiceManagement -->
+      </class> <!-- eu.cloudopting.testing.tests.TestServiceManagement -->
+      <class name="eu.cloudopting.testing.tests.TestOrganizationManagement">
+        <test-method status="PASS" signature="testSearchOrganization() throws java.lang.InterruptedException" name="testSearchOrganization" duration-ms="63005" started-at="2017-02-16T11:31:45Z" finished-at="2017-02-16T11:32:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchOrganization -->
+      </class> <!-- eu.cloudopting.testing.tests.TestOrganizationManagement -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>
