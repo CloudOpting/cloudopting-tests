@@ -31,36 +31,36 @@ public class TestOrganizationManagement extends TestCase {
 		baseUrl = CommonSteps.BASE_URL;
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
-	
-	@Test
-	public void testOrganizationManagement() throws InterruptedException {
-		CommonSteps.login(driver, baseUrl);
-		System.out.println("testCreateOrganization");
-		
-		createOrganization();
-		
-		WebElement organizationRow = findOrganizationRow("TestOrganization");
-		
-		assertNotNull("The organization is not in the list", organizationRow);
-		
-		System.out.println("Cells: " + organizationRow.findElements(By.tagName("td")).size());
-		
-		WebElement delButton = organizationRow.findElements(By.tagName("button")).get(1);
-	    System.out.println(delButton.getText());
-	    
-	    delButton.click();
-	    Thread.sleep(5000);
-	    Alert alert = driver.switchTo().alert();
-		System.out.println("Alert: " + alert.getText());
-		Thread.sleep(5000);
-		alert.accept(); //click ok to the confirmation
-		System.out.println("Confirmation clicked");
-		
-		WebElement afterDelOrganizationRow = findOrganizationRow("TestOrganization");
-	    
-	    assertNull("After delete the organization is still in the service list", afterDelOrganizationRow);
-	}
-	
+//	
+//	@Test
+//	public void testOrganizationManagement() throws InterruptedException {
+//		CommonSteps.login(driver, baseUrl);
+//		System.out.println("testCreateOrganization");
+//		
+//		createOrganization();
+//		
+//		WebElement organizationRow = findOrganizationRow("TestOrganization");
+//		
+//		assertNotNull("The organization is not in the list", organizationRow);
+//		
+//		System.out.println("Cells: " + organizationRow.findElements(By.tagName("td")).size());
+//		
+//		WebElement delButton = organizationRow.findElements(By.tagName("button")).get(1);
+//	    System.out.println(delButton.getText());
+//	    
+//	    delButton.click();
+//	    Thread.sleep(5000);
+//	    Alert alert = driver.switchTo().alert();
+//		System.out.println("Alert: " + alert.getText());
+//		Thread.sleep(5000);
+//		alert.accept(); //click ok to the confirmation
+//		System.out.println("Confirmation clicked");
+//		
+//		WebElement afterDelOrganizationRow = findOrganizationRow("TestOrganization");
+//	    
+//	    assertNull("After delete the organization is still in the service list", afterDelOrganizationRow);
+//	}
+//	
 	/**
 	 * Test Organization search
 	 * Input the name of an organization and check that the matching record is in the shown list
